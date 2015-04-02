@@ -16,4 +16,5 @@ public class LayoutConstants
     public static String LAYOUTS_PRE = "layouts/";
 
     public static String LAYOUT_LOGIN = LAYOUTS_PRE + "view_login.fxml";
+    public static String LAYOUT_ARTICLES = LAYOUTS_PRE + "view_articles.fxml";
 }

@@ -8,7 +8,7 @@ package main.com.security.anonophant; /**
 
 import main.com.security.anonophant.utils.LayoutConstants;
 import main.com.security.anonophant.utils.LoggingUtil;
-import main.com.security.anonophant.views.Login;
+import main.com.security.anonophant.views.LoginView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -22,8 +22,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        Login login = new Login();
-        login.show();
+        LoginView loginView = new LoginView();
+        loginView.show();
     }
 
     public static void main(String[] args)
