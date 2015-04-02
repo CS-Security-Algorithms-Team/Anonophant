@@ -47,10 +47,10 @@
 
 .check-box *.box
 {
-        -fx-background-insets: 0, 1;
-        -fx-background-radius: 2, 2;
-        -fx-background-border: 1px;
-        -fx-background-color: #AAAAAA, #CCCCCC;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 2, 2;
+    -fx-background-border: 1px;
+    -fx-background-color: #AAAAAA, #CCCCCC;
 }
 
 .label
