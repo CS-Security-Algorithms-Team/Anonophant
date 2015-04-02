@@ -1,0 +1,62 @@
+.root
+{
+    -fx-background: #DDDDDD;
+}
+
+.button
+{
+    -fx-border-radius: 2;
+    -fx-background-color: #F44336;
+    -fx-font-size: 10pt;
+    -fx-font-family: "Helvetica";
+    -fx-text-fill: #FFFFFF;
+    -fx-alignment: center;
+}
+
+.button:hover
+{
+    -fx-background-color: #EF5350;
+}
+
+.button:pressed
+{
+    -fx-background-color: #B71C1C;
+}
+
+.combo-box
+{
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 2, 2;
+    -fx-background-border: 1px;
+    -fx-background-color: #AAAAAA, #CCCCCC;
+}
+
+.combo-box-popup .list-view
+{
+    -fx-background-color: #CCCCCC;
+}
+
+.text-field
+{
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 2, 2;
+    -fx-background-border: 1px;
+    -fx-background-color: #BBBBBB, #CCCCCC;
+    -fx-prompt-text-fill: #777777;
+}
+
+.check-box *.box
+{
+        -fx-background-insets: 0, 1;
+        -fx-background-radius: 2, 2;
+        -fx-background-border: 1px;
+        -fx-background-color: #AAAAAA, #CCCCCC;
+}
+
+.label
+{
+    -fx-font-size: 16pt;
+    -fx-font-family: "Helvetica";
+    -fx-text-size: 16pt;
+    -fx-text-fill: #000000;
+}

@@ -17,9 +17,9 @@ public class LoggingUtil
     public static final int LEVEL_INFO = 1;
     public static final int LEVEL_DEBUG = 2;
 
-    private static final String LOG_TYPE_ALL = "LOG TYPE: ALL:    ";
-    private static final String LOG_TYPE_DEBUG = "LOG TYPE: DEBUG:    ";
-    private static final String LOG_TYPE_INFO = "LOG TYPE: INFO:   ";
+    private static final String LOG_TYPE_ALL = "LOG : ALL:    ";
+    private static final String LOG_TYPE_DEBUG = "LOG : DEBUG:    ";
+    private static final String LOG_TYPE_INFO = "LOG : INFO:   ";
 
     /**
      * Creates a log with a name, message, and level.

@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.com.security.anonophant.utils.LayoutConstants;
 
 import java.io.IOException;
 
@@ -33,10 +34,11 @@ public class Login extends Stage
 
     private void init() throws IOException
     {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("layouts/view_login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(LayoutConstants.LAYOUT_LOGIN));
         Scene loginScene = new Scene(root);
 
         this.setTitle(STAGE_TITLE);
         this.setScene(loginScene);
+        this.setResizable(false);
     }
 }

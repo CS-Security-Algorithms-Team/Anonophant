@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="350.0" maxWidth="400.0" minHeight="350.0" minWidth="400.0" prefHeight="350.0" prefWidth="400.0" stylesheets="@../style/login_style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="text_field_login" layoutX="115.0" layoutY="70.0" promptText="Username" />
-      <TextField fx:id="text_field_password" layoutX="115.0" layoutY="120.0" promptText="Password" />
-      <Button fx:id="button_login" layoutX="174.0" layoutY="161.0" mnemonicParsing="false" text="Login" />
-      <Label layoutX="160.0" layoutY="30.0" text="Anonophant" />
+      <TextField fx:id="text_field_login" layoutX="115.0" layoutY="150.0" promptText="Username" stylesheets="@../style/login_style.css" />
+      <Button fx:id="button_login" layoutX="132.0" layoutY="288.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="136.0" stylesheets="@../style/login_style.css" text="Login" />
+      <Label layoutX="136.0" layoutY="65.0" stylesheets="@../style/login_style.css" text="Anonophant" />
+      <PasswordField layoutX="115.0" layoutY="198.0" promptText="Password" />
+      <ImageView fitHeight="76.0" fitWidth="118.0" layoutX="56.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/ic_logo.png" />
+         </image>
+      </ImageView>
+      <CheckBox layoutX="107.0" layoutY="248.0" mnemonicParsing="false" text="Restart from last activity" />
+      <ComboBox layoutX="125.0" layoutY="104.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

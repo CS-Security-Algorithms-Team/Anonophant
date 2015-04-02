@@ -28,7 +28,6 @@ public class Main extends Application {
 
     public static void main(String[] args)
     {
-        System.out.println("LOL");
         LoggingUtil.log(LOG_TAG, LayoutConstants.LAYOUT_LOGIN, LoggingUtil.LEVEL_DEBUG);
         launch(args);
     }
