@@ -34,6 +34,15 @@ public abstract class BaseSocket implements Runnable
         netSocket = new Socket(URI, port);
     }
 
+    public void close() throws IOException
+    {
+        netSocket.close();
+    }
+
+    public void read(){}
+
+    public void write(String... senders){}
+
     public void onPreExecute(){}
 
     public void onPostExecute(){}

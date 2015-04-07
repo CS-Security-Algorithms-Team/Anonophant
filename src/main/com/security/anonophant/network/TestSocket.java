@@ -18,7 +18,7 @@ import java.io.IOException;
  * This is only a test class, not really useful for anything, just making sure
  * OOP structures are working properly
  */
-public class TestSocket extends ReadSocket
+public class TestSocket extends BaseSocket
 {
     public TestSocket(String URI, int port, Stage loadingView) throws IOException
     {
