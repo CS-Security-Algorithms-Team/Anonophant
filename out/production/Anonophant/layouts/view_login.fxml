@@ -10,13 +10,13 @@
       <TextField fx:id="text_field_login" layoutX="115.0" layoutY="150.0" promptText="Username" stylesheets="@../style/login_style.css" />
       <Button fx:id="button_login" layoutX="132.0" layoutY="288.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="136.0" stylesheets="@../style/login_style.css" text="Login" />
       <Label layoutX="136.0" layoutY="65.0" stylesheets="@../style/login_style.css" text="Anonophant" />
-      <PasswordField layoutX="115.0" layoutY="198.0" promptText="Password" />
+      <PasswordField fx:id="text_field_password" layoutX="115.0" layoutY="198.0" promptText="Password" />
       <ImageView fitHeight="76.0" fitWidth="118.0" layoutX="56.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/ic_logo.png" />
          </image>
       </ImageView>
-      <CheckBox layoutX="107.0" layoutY="248.0" mnemonicParsing="false" text="Restart from last activity" />
-      <ComboBox layoutX="125.0" layoutY="104.0" prefWidth="150.0" />
+      <CheckBox fx:id="check_box_last_activity" layoutX="107.0" layoutY="248.0" mnemonicParsing="false" text="Restart from last activity" />
+      <ComboBox fx:id="combo_app_name" layoutX="125.0" layoutY="104.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

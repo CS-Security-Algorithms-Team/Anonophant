@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import main.com.security.anonophant.network.TestSocket;
 import main.com.security.anonophant.utils.LayoutConstants;
 
 import java.io.IOException;
@@ -47,7 +48,6 @@ public class LoginView extends Stage
         this.setTitle(STAGE_TITLE);
         this.setScene(loginScene);
         this.setResizable(false);
-
     }
 
     private class LoginController implements Initializable
