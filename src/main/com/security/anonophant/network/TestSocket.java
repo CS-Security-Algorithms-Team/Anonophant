@@ -32,6 +32,11 @@ public class TestSocket extends BaseSocket
     }
 
     @Override
+    public void write(String... senders) {
+
+    }
+
+    @Override
     public void onError()
     {
 
