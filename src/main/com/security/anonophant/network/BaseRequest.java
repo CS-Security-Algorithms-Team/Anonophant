@@ -8,10 +8,14 @@
 
 package main.com.security.anonophant.network;
 
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created by weava on 4/6/15.
@@ -22,18 +26,17 @@ import java.net.Socket;
  * NOTE: As of writing this initial description, this implementation is imperfect,
  * and may be changed to fit our needs.
  */
-public abstract class BaseSocket implements Runnable
+public abstract class BaseRequest extends Task<ArrayList<String>>
 {
     public Socket netSocket;
     public String URI;
     public Stage loadingView;
     public int port;
 
-    public BaseSocket(String URI, int port, Stage loadingView) throws IOException
+    public BaseRequest(String URI, int port) throws IOException
     {
         this.URI = URI;
         this.port = port;
-        this.loadingView = loadingView;
         netSocket = new Socket(URI, port);
     }
 
@@ -47,7 +50,7 @@ public abstract class BaseSocket implements Runnable
     }
 
     /**
-     * Optional abstract implementation for when wanting to read from a pipe.
+     * Optional implementation for when wanting to read from a pipe.
      * (Not abstract so that reading remains an option for sockets, rather than a requirement)
      */
     public void read(){}
@@ -58,23 +61,4 @@ public abstract class BaseSocket implements Runnable
      * @param senders
      */
     public abstract void write(String... senders);
-
-    /**
-     * Execute before a thread has started its logic.
-     * Setup any loading screens or UI changes to allow the user to know a network request is
-     * happening.
-     */
-    public void onPreExecute(){}
-
-    /**
-     * Execute after a thread has finished writing (and possibly reading) and no errors have occured.
-     * Finish up any loading screens and load requested content.
-     */
-    public void onPostExecute(){}
-
-    /**
-     * Execute if an error occurs in thread
-     * Make sure to let the user know an error has occured with the network.
-     */
-    public void onError(){}
 }
