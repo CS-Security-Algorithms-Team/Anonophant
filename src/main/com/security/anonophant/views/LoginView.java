@@ -20,11 +20,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import main.com.security.anonophant.network.TTPRequest;
 import main.com.security.anonophant.network.TestRequest;
 import main.com.security.anonophant.utils.LayoutConstants;
 
 import javafx.scene.input.MouseEvent;
 import main.com.security.anonophant.utils.LoggingUtil;
+import main.com.security.anonophant.utils.NetworkConstants;
 
 import java.io.IOException;
 import java.net.URL;
@@ -59,25 +61,10 @@ public class LoginView extends Stage
         this.setTitle(STAGE_TITLE);
         this.setScene(loginScene);
         this.setResizable(false);
-
-        /*
-         * Sample request for sending to test.com over port 22
-         * Using task, you have the ability to bind data and views to update
-         * loading screens and other data types
-         *
-         * To see how to bind data types and views, look at JavaFX docs
-         *
-         * this website (http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm)
-         * was particularly helpful.
-
-        TestRequest request = new TestRequest("www.test.com", 22, null);
-        request.setOnSucceeded(new TaskSuccessHandler());
-        new Thread(request).start();
-        */
     }
 
     private class LoginController implements Initializable, EventHandler<MouseEvent> {
-        private final String LOG_TAG = "Login Controller";
+        private final String LOG_TAG = "LOGIN CONTROLLER";
 
         private String username;
         private String password;
@@ -123,8 +110,38 @@ public class LoginView extends Stage
             lastActivityChecked = check_box_last_activity.isSelected();
             appName = combo_app_name.getSelectionModel().getSelectedItem().toString();
 
+            String[] loginInfo = new String[3];
+            loginInfo[0] = username;
+            loginInfo[1] = password;
+            loginInfo[2] = appName;
+
             LoggingUtil.log(LOG_TAG, "\nApp Name: " + appName + "\nUsername: " + username +
                     "\nPassword: " + password + "\nLast Activity: " + lastActivityChecked, LoggingUtil.LEVEL_DEBUG);
+
+            handleLogin(loginInfo);
+        }
+
+        public void handleLogin(String[] loginInfo)
+        {
+                    /*
+         * Sample request for sending to test.com over port 22
+         * Using task, you have the ability to bind data and views to update
+         * loading screens and other data types
+         *
+         * To see how to bind data types and views, look at JavaFX docs
+         *
+         * this website (http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm)
+         * was particularly helpful.
+         */
+
+            TTPRequest request = null;
+            try {
+                request = new TTPRequest(NetworkConstants.TTP_URL, NetworkConstants.TTP_PORT, loginInfo);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            request.setOnSucceeded(new TTPSuccessHandler());
+        new Thread(request).start();
         }
     }
 
@@ -135,7 +152,7 @@ public class LoginView extends Stage
      * This should be created in the class that is threading the request,
      * as this will make it easier to update UI and other elements.
      */
-    private class TaskSuccessHandler implements EventHandler<WorkerStateEvent>
+    private class TTPSuccessHandler implements EventHandler<WorkerStateEvent>
     {
         @Override
         public void handle(WorkerStateEvent event)

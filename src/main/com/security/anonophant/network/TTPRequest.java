@@ -8,7 +8,10 @@
 
 package main.com.security.anonophant.network;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +19,8 @@ import java.util.ArrayList;
  */
 public class TTPRequest extends BaseRequest
 {
+    private ArrayList<String> fromServer;
+
     public TTPRequest(String URI, int port, String[] serverStrings) throws IOException
     {
         super(URI, port, serverStrings);
@@ -24,14 +29,38 @@ public class TTPRequest extends BaseRequest
     }
 
     @Override
-    public void write()
+    public ArrayList<String> read() throws IOException
     {
+        BufferedReader in = new BufferedReader(new InputStreamReader(getRequestSocket().getInputStream()));
+        ArrayList<String> retrievedStrings = new ArrayList<>();
+        String line = null;
+        while((line = in.readLine()) != null)
+        {
+            retrievedStrings.add(line);
+        }
 
+        return retrievedStrings;
+    }
+
+    @Override
+    public void write() throws IOException
+    {
+        String[] toSend = getServerStrings();
+        PrintWriter out = new PrintWriter(getRequestSocket().getOutputStream());
+        out.println(toSend[0] + "," + toSend[1] + "," + toSend[2]);
+        out.flush();
     }
 
     @Override
     protected ArrayList<String> call() throws Exception
     {
+        write();
+        fromServer = read();
         return null;
+    }
+
+    public ArrayList<String> getFromServer()
+    {
+        return fromServer;
     }
 }

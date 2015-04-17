@@ -28,10 +28,10 @@ import java.util.ArrayList;
  */
 public abstract class BaseRequest extends Task<ArrayList<String>>
 {
-    public Socket requestSocket;
-    public String URI;
-    public String[] serverStrings;
-    public int port;
+    private Socket requestSocket;
+    private String URI;
+    private String[] serverStrings;
+    private int port;
 
     public BaseRequest(String URI, int port, String[] serverStrings) throws IOException
     {
@@ -40,6 +40,8 @@ public abstract class BaseRequest extends Task<ArrayList<String>>
         this.serverStrings = serverStrings;
         requestSocket = new Socket(URI, port);
     }
+
+    public ArrayList<String> read() throws IOException { return null; }
 
     /**
      * Always close your sockets boys & girls :^)
@@ -55,7 +57,7 @@ public abstract class BaseRequest extends Task<ArrayList<String>>
      * a socket (hence the abstract declaration)
      * @param senders
      */
-    public abstract void write();
+    public abstract void write() throws IOException;
 
     public Socket getRequestSocket() {
         return requestSocket;
