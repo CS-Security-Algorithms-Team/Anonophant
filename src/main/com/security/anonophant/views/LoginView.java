@@ -8,7 +8,10 @@
 
 package main.com.security.anonophant.views;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +23,14 @@ import javafx.stage.Stage;
 import main.com.security.anonophant.network.TestRequest;
 import main.com.security.anonophant.utils.LayoutConstants;
 
+import javafx.scene.input.MouseEvent;
+import main.com.security.anonophant.utils.LoggingUtil;
+
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 /**
@@ -60,14 +69,16 @@ public class LoginView extends Stage
          *
          * this website (http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm)
          * was particularly helpful.
-         */
+
         TestRequest request = new TestRequest("www.test.com", 22, null);
         request.setOnSucceeded(new TaskSuccessHandler());
         new Thread(request).start();
+        */
     }
 
-    private class LoginController implements Initializable
-    {
+    private class LoginController implements Initializable, EventHandler<MouseEvent> {
+        private final String LOG_TAG = "Login Controller";
+
         @FXML
         ComboBox combo_app_name;
 
@@ -84,9 +95,19 @@ public class LoginView extends Stage
         Button button_login;
 
         @Override
-        public void initialize(URL location, ResourceBundle resources)
-        {
+        public void initialize(URL location, ResourceBundle resources) {
+            ArrayList<String> applicationsList = new ArrayList<>();
+            applicationsList.add("Tech News");
+            ObservableList<String> applicationsObservable = FXCollections.observableArrayList(applicationsList);
+            combo_app_name.setItems(applicationsObservable);
 
+            button_login.setOnMouseClicked(this);
+        }
+
+        @Override
+        public void handle(MouseEvent event)
+        {
+            LoggingUtil.log(LOG_TAG, "The login button has been clicked", LoggingUtil.LEVEL_DEBUG);
         }
     }
 
@@ -100,7 +121,8 @@ public class LoginView extends Stage
     private class TaskSuccessHandler implements EventHandler<WorkerStateEvent>
     {
         @Override
-        public void handle(WorkerStateEvent event) {
+        public void handle(WorkerStateEvent event)
+        {
 
         }
     }
