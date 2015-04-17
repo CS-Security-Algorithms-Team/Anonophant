@@ -9,7 +9,7 @@
    <children>
       <TextField fx:id="text_field_login" layoutX="115.0" layoutY="150.0" promptText="Username" stylesheets="@../style/login_style.css" />
       <Button fx:id="button_login" layoutX="132.0" layoutY="288.0" mnemonicParsing="false" prefHeight="10.0" prefWidth="136.0" stylesheets="@../style/login_style.css" text="Login" />
-      <Label layoutX="136.0" layoutY="65.0" stylesheets="@../style/login_style.css" text="Anonophant" />
+      <Label layoutX="136.0" layoutY="65.0" stylesheets="@../style/login_style.css" text="Anonyphant" />
       <PasswordField fx:id="text_field_password" layoutX="115.0" layoutY="198.0" promptText="Password" />
       <ImageView fitHeight="76.0" fitWidth="118.0" layoutX="56.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
