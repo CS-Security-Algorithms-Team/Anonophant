@@ -79,6 +79,11 @@ public class LoginView extends Stage
     private class LoginController implements Initializable, EventHandler<MouseEvent> {
         private final String LOG_TAG = "Login Controller";
 
+        private String username;
+        private String password;
+        private String appName;
+        private boolean lastActivityChecked;
+
         @FXML
         ComboBox combo_app_name;
 
@@ -95,7 +100,8 @@ public class LoginView extends Stage
         Button button_login;
 
         @Override
-        public void initialize(URL location, ResourceBundle resources) {
+        public void initialize(URL location, ResourceBundle resources)
+        {
             ArrayList<String> applicationsList = new ArrayList<>();
             applicationsList.add("Tech News");
             ObservableList<String> applicationsObservable = FXCollections.observableArrayList(applicationsList);
@@ -108,6 +114,17 @@ public class LoginView extends Stage
         public void handle(MouseEvent event)
         {
             LoggingUtil.log(LOG_TAG, "The login button has been clicked", LoggingUtil.LEVEL_DEBUG);
+
+            /*
+             * Finalize all items on the login screen to be verified.
+             */
+            username = text_field_login.getText().trim();
+            password = text_field_password.getText();
+            lastActivityChecked = check_box_last_activity.isSelected();
+            appName = combo_app_name.getSelectionModel().getSelectedItem().toString();
+
+            LoggingUtil.log(LOG_TAG, "\nApp Name: " + appName + "\nUsername: " + username +
+                    "\nPassword: " + password + "\nLast Activity: " + lastActivityChecked, LoggingUtil.LEVEL_DEBUG);
         }
     }
 
