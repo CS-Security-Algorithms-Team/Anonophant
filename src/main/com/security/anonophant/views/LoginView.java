@@ -61,7 +61,7 @@ public class LoginView extends Stage
          * this website (http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm)
          * was particularly helpful.
          */
-        TestRequest request = new TestRequest("www.test.com", 22);
+        TestRequest request = new TestRequest("www.test.com", 22, null);
         request.setOnSucceeded(new TaskSuccessHandler());
         new Thread(request).start();
     }

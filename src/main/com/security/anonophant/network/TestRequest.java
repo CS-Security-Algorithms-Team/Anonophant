@@ -23,10 +23,10 @@ import java.util.ArrayList;
  */
 public class TestRequest extends BaseRequest
 {
-    public TestRequest(String URI, int port) throws IOException
+    public TestRequest(String URI, int port, String[] serverStrings) throws IOException
     {
-        super(URI, port);
-        this.loadingView = loadingView;
+        super(URI, port, serverStrings);
+
         /*
          * Generic Fail handler only sends message to console right now,
          * If you need to add more generic functionality, add to FailHandler.
@@ -37,13 +37,9 @@ public class TestRequest extends BaseRequest
     }
 
     @Override
-    public void read()
+    public void write()
     {
-    }
-
-    @Override
-    public void write(String... senders)
-    {
+        String[] toSend = getServerStrings();
     }
 
     @Override

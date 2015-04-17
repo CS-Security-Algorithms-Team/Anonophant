@@ -28,16 +28,17 @@ import java.util.ArrayList;
  */
 public abstract class BaseRequest extends Task<ArrayList<String>>
 {
-    public Socket netSocket;
+    public Socket requestSocket;
     public String URI;
-    public Stage loadingView;
+    public String[] serverStrings;
     public int port;
 
-    public BaseRequest(String URI, int port) throws IOException
+    public BaseRequest(String URI, int port, String[] serverStrings) throws IOException
     {
         this.URI = URI;
         this.port = port;
-        netSocket = new Socket(URI, port);
+        this.serverStrings = serverStrings;
+        requestSocket = new Socket(URI, port);
     }
 
     /**
@@ -46,19 +47,45 @@ public abstract class BaseRequest extends Task<ArrayList<String>>
      */
     public void close() throws IOException
     {
-        netSocket.close();
+        requestSocket.close();
     }
-
-    /**
-     * Optional implementation for when wanting to read from a pipe.
-     * (Not abstract so that reading remains an option for sockets, rather than a requirement)
-     */
-    public void read(){}
 
     /**
      * Writes array of strings through socket. You will ALWAYS want to write from
      * a socket (hence the abstract declaration)
      * @param senders
      */
-    public abstract void write(String... senders);
+    public abstract void write();
+
+    public Socket getRequestSocket() {
+        return requestSocket;
+    }
+
+    public void setRequestSocket(Socket requestSocket) {
+        this.requestSocket = requestSocket;
+    }
+
+    public String getURI() {
+        return URI;
+    }
+
+    public void setURI(String URI) {
+        this.URI = URI;
+    }
+
+    public String[] getServerStrings() {
+        return serverStrings;
+    }
+
+    public void setServerStrings(String[] serverStrings) {
+        this.serverStrings = serverStrings;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 }
