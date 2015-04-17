@@ -25,12 +25,6 @@ public class NewArticleRequest extends BaseRequest
     private int articleId;
     private String token;
 
-    public static final String NEW_CONTENT = "NEW_CONTENT";
-    public static final String PREVIOUS_TOKEN = "PREVIOUS_TOKEN";
-    public static final String CONTENT_LIST = "CONTENT_LIST";
-
-
-
     public NewArticleRequest(String URI, int port, String newToken, int articleId) throws IOException
     {
         super(URI, port, null);
