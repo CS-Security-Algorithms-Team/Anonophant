@@ -41,6 +41,7 @@ import java.util.ResourceBundle;
 public class LoginView extends Stage
 {
     private final String STAGE_TITLE = "Login";
+    public Stage currentStage = this;
 
     public LoginView()
     {
@@ -157,7 +158,9 @@ public class LoginView extends Stage
         @Override
         public void handle(WorkerStateEvent event)
         {
-
+            currentStage.hide();
+            ArticleView articleView = new ArticleView();
+            articleView.show();
         }
     }
 }
