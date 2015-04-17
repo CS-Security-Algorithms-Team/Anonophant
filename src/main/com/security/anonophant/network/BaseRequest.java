@@ -55,7 +55,7 @@ public abstract class BaseRequest extends Task<ArrayList<String>>
      * a socket (hence the abstract declaration)
      * @param senders
      */
-    public abstract void write();
+    public abstract void write() throws IOException;
 
     public Socket getRequestSocket() {
         return requestSocket;

@@ -1,5 +1,5 @@
 /**
- * ProviderRequest
+ * ArticleListRequest
  *
  * @author Aaron Weaver  (waaronl@okstate.edu)
  * @version 1.0
@@ -14,9 +14,9 @@ import java.util.ArrayList;
 /**
  * Created by weava on 4/17/15.
  */
-public class ProviderRequest extends BaseRequest
+public class ArticleListRequest extends BaseRequest
 {
-    public ProviderRequest(String URI, int port, String[] serverStrings) throws IOException
+    public ArticleListRequest(String URI, int port, String[] serverStrings) throws IOException
     {
         super(URI, port, serverStrings);
 
