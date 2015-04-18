@@ -159,6 +159,7 @@ public class LoginView extends Stage
         public void handle(WorkerStateEvent event)
         {
             currentStage.hide();
+            System.out.println("THIS IS WORKING");
             ArticleView articleView = new ArticleView();
             articleView.show();
         }
