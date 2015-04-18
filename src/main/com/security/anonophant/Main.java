@@ -6,6 +6,8 @@ package main.com.security.anonophant; /**
  * @since 3/30/15
  */
 
+import java.io.File;
+
 import main.com.security.anonophant.utils.LayoutConstants;
 import main.com.security.anonophant.utils.LoggingUtil;
 import main.com.security.anonophant.views.LoginView;
@@ -28,6 +30,8 @@ public class Main extends Application {
 
     public static void main(String[] args)
     {
+    	File file = new File(LayoutConstants.LAYOUT_LOGIN);
+    	LoggingUtil.log(LOG_TAG, "Login layout exists? " + file.exists(), LoggingUtil.LEVEL_DEBUG);
         LoggingUtil.log(LOG_TAG, LayoutConstants.LAYOUT_LOGIN, LoggingUtil.LEVEL_DEBUG);
         launch(args);
     }

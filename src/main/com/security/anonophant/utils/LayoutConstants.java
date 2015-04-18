@@ -13,7 +13,8 @@ package main.com.security.anonophant.utils;
  */
 public class LayoutConstants
 {
-    public static String LAYOUTS_PRE = "layouts/";
+	//public static String LAYOUTS_WORKING_DIRECTORY = System.getProperty("user.dir") + "\\src\\main\\resources";
+    public static String LAYOUTS_PRE = "layouts\\";
 
     public static String LAYOUT_LOGIN = LAYOUTS_PRE + "view_login.fxml";
     public static String LAYOUT_ARTICLES = LAYOUTS_PRE + "view_articles.fxml";
