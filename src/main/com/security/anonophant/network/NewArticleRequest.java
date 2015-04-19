@@ -25,8 +25,7 @@ public class NewArticleRequest extends BaseRequest
     private int articleId;
     private String token;
 
-    public NewArticleRequest(String URI, int port, String newToken, int articleId) throws IOException
-    {
+    public NewArticleRequest(String URI, int port, String newToken, int articleId) throws IOException {
         super(URI, port, null);
         this.articleId = articleId;
         this.token = newToken;
