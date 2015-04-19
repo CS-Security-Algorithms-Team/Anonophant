@@ -10,6 +10,7 @@ import java.io.File;
 
 import main.com.security.anonophant.utils.LayoutConstants;
 import main.com.security.anonophant.utils.LoggingUtil;
+import main.com.security.anonophant.views.ArticleView;
 import main.com.security.anonophant.views.LoginView;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -24,8 +25,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        LoginView loginView = new LoginView();
-        loginView.show();
+        //LoginView loginView = new LoginView();
+        //loginView.show();
+        ArticleView articleView = new ArticleView();
+        articleView.show();
     }
 
     public static void main(String[] args)
