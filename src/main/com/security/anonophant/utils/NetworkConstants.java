@@ -14,5 +14,8 @@ package main.com.security.anonophant.utils;
 public class NetworkConstants
 {
     public static final String TTP_URL = "localhost";
-    public static final int TTP_PORT = 80;
+    public static final int TTP_PORT = 8080;
+
+    public static final String AUTH_URL = "localhost";
+    public static final int AUTH_PORT = 8888;
 }

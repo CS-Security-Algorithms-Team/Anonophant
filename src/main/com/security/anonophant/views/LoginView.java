@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import main.com.security.anonophant.network.AuthenticationRequest;
 import main.com.security.anonophant.network.TTPRequest;
 import main.com.security.anonophant.network.TestRequest;
 import main.com.security.anonophant.utils.LayoutConstants;
@@ -42,6 +43,8 @@ public class LoginView extends Stage
 {
     private final String STAGE_TITLE = "Login";
     public Stage currentStage = this;
+    public TTPRequest request;
+    public AuthenticationRequest authRequest;
 
     public LoginView()
     {
@@ -70,6 +73,7 @@ public class LoginView extends Stage
         private String username;
         private String password;
         private String appName;
+        private int appNum;
         private boolean lastActivityChecked;
 
         @FXML
@@ -110,11 +114,12 @@ public class LoginView extends Stage
             password = text_field_password.getText();
             lastActivityChecked = check_box_last_activity.isSelected();
             appName = combo_app_name.getSelectionModel().getSelectedItem().toString();
+            appNum = combo_app_name.getSelectionModel().getSelectedIndex() + 1;
 
             String[] loginInfo = new String[3];
             loginInfo[0] = username;
             loginInfo[1] = password;
-            loginInfo[2] = appName;
+            loginInfo[2] = appNum + "";
 
             LoggingUtil.log(LOG_TAG, "\nApp Name: " + appName + "\nUsername: " + username +
                     "\nPassword: " + password + "\nLast Activity: " + lastActivityChecked, LoggingUtil.LEVEL_DEBUG);
@@ -124,7 +129,7 @@ public class LoginView extends Stage
 
         public void handleLogin(String[] loginInfo)
         {
-                    /*
+        /*
          * Sample request for sending to test.com over port 22
          * Using task, you have the ability to bind data and views to update
          * loading screens and other data types
@@ -135,14 +140,14 @@ public class LoginView extends Stage
          * was particularly helpful.
          */
 
-            TTPRequest request = null;
+            request = null;
             try {
                 request = new TTPRequest(NetworkConstants.TTP_URL, NetworkConstants.TTP_PORT, loginInfo);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             request.setOnSucceeded(new TTPSuccessHandler());
-        new Thread(request).start();
+            new Thread(request).start();
         }
     }
 
@@ -160,6 +165,65 @@ public class LoginView extends Stage
         {
             currentStage.hide();
             System.out.println("THIS IS WORKING");
+            String cypheredKey = "";
+            ArrayList<String> receivedStrings = request.getFromServer();
+            for(int i = 0; i < receivedStrings.size(); i++)
+            {
+                System.out.println(receivedStrings.get(i));
+            }
+
+            if(receivedStrings.size() > 0 && receivedStrings.size() < 2)
+            {
+                cypheredKey = cypherKey(receivedStrings.get(0));
+                System.out.println(cypheredKey);
+            }
+
+            cypheredKey = cypheredKey + "\n";
+
+            String[] authStrings = new String[1];
+            authStrings[0] = cypheredKey;
+
+            try {
+                authRequest = new AuthenticationRequest(NetworkConstants.AUTH_URL, NetworkConstants.AUTH_PORT, authStrings);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            authRequest.setOnSucceeded(new AuthenticationSuccessHandler());
+            new Thread(authRequest).start();
+        }
+
+        private String cypherKey(String message)
+        {
+            int k = 3;
+            String cyphered = "";
+
+            for(int i = 0; i < message.length(); i++)
+            {
+                char x = message.charAt(i);
+                x = (char) (x + k);
+                cyphered = cyphered + x;
+            }
+
+            return cyphered;
+        }
+    }
+
+    private class AuthenticationSuccessHandler implements EventHandler<WorkerStateEvent>
+    {
+        @Override
+        public void handle(WorkerStateEvent event)
+        {
+            System.out.println("Authentication successful :)");
+            String receivedToken = "";
+
+            ArrayList<String> receivedFromServer = authRequest.getFromServer();
+
+            if(receivedFromServer.size() > 0 && receivedFromServer.size() < 2)
+            {
+                receivedToken = receivedFromServer.get(0);
+            }
+
             ArticleView articleView = new ArticleView();
             articleView.show();
         }
