@@ -46,6 +46,7 @@ public class ArticleListRequest extends BaseRequest
         {
             articles.add(line);
         }
+        close();
         return articles;
     }
 }

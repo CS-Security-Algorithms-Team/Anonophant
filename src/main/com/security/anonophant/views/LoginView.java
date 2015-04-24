@@ -23,11 +23,13 @@ import javafx.stage.Stage;
 import main.com.security.anonophant.network.AuthenticationRequest;
 import main.com.security.anonophant.network.TTPRequest;
 import main.com.security.anonophant.network.TestRequest;
+import main.com.security.anonophant.network.TokenArticleRequest;
 import main.com.security.anonophant.utils.LayoutConstants;
 
 import javafx.scene.input.MouseEvent;
 import main.com.security.anonophant.utils.LoggingUtil;
 import main.com.security.anonophant.utils.NetworkConstants;
+import main.com.security.anonophant.utils.UserSettings;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,10 +43,12 @@ import java.util.ResourceBundle;
  */
 public class LoginView extends Stage
 {
+    private boolean lastActivityChecked;
     private final String STAGE_TITLE = "Login";
     public Stage currentStage = this;
     public TTPRequest request;
     public AuthenticationRequest authRequest;
+    private LoginController controller;
 
     public LoginView()
     {
@@ -58,7 +62,8 @@ public class LoginView extends Stage
     private void init() throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource(LayoutConstants.LAYOUT_LOGIN));
-        fxmlLoader.setController(new LoginController());
+        controller = new LoginController();
+        fxmlLoader.setController(controller);
         Parent root = fxmlLoader.load();
         Scene loginScene = new Scene(root);
 
@@ -74,7 +79,6 @@ public class LoginView extends Stage
         private String password;
         private String appName;
         private int appNum;
-        private boolean lastActivityChecked;
 
         @FXML
         ComboBox combo_app_name;
@@ -139,7 +143,6 @@ public class LoginView extends Stage
          * this website (http://docs.oracle.com/javafx/2/threads/jfxpub-threads.htm)
          * was particularly helpful.
          */
-
             request = null;
             try {
                 request = new TTPRequest(NetworkConstants.TTP_URL, NetworkConstants.TTP_PORT, loginInfo);
@@ -178,20 +181,28 @@ public class LoginView extends Stage
                 System.out.println(cypheredKey);
             }
 
+
+
             cypheredKey = cypheredKey + "\n";
 
-            String[] authStrings = new String[1];
-            authStrings[0] = cypheredKey;
+            UserSettings.providerPasswords.put("Tech News",cypheredKey);
 
-            try {
-                authRequest = new AuthenticationRequest(NetworkConstants.AUTH_URL, NetworkConstants.AUTH_PORT, authStrings);
-            } catch (IOException e) {
-                e.printStackTrace();
+            ArticleView articleView = null;
+
+            if(lastActivityChecked)
+            {
+                System.out.println("You selected last activity");
+                articleView = new ArticleView(lastActivityChecked);
             }
-
-            authRequest.setOnSucceeded(new AuthenticationSuccessHandler());
-            new Thread(authRequest).start();
+            else
+            {
+                articleView = new ArticleView();
+            }
+            articleView.show();
+            currentStage.hide();
         }
+
+
 
         private String cypherKey(String message)
         {
@@ -211,21 +222,24 @@ public class LoginView extends Stage
 
     private class AuthenticationSuccessHandler implements EventHandler<WorkerStateEvent>
     {
+        String token;
+
         @Override
         public void handle(WorkerStateEvent event)
         {
             System.out.println("Authentication successful :)");
-            String receivedToken = "";
 
             ArrayList<String> receivedFromServer = authRequest.getFromServer();
 
             if(receivedFromServer.size() > 0 && receivedFromServer.size() < 2)
             {
-                receivedToken = receivedFromServer.get(0);
+                token = receivedFromServer.get(0);
             }
+        }
 
-            ArticleView articleView = new ArticleView();
-            articleView.show();
+        public String getToken()
+        {
+            return token;
         }
     }
 }

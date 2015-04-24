@@ -56,7 +56,8 @@ public class TTPRequest extends BaseRequest
     {
         write();
         fromServer = read();
-        return null;
+        close();
+        return fromServer;
     }
 
     public ArrayList<String> getFromServer()

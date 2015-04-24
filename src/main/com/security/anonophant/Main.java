@@ -25,10 +25,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        //LoginView loginView = new LoginView();
-        //loginView.show();
-        ArticleView articleView = new ArticleView();
-        articleView.show();
+        LoginView loginView = new LoginView();
+        loginView.show();
+        //ArticleView articleView = new ArticleView();
+        //articleView.show();
     }
 
     public static void main(String[] args)

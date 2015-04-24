@@ -8,10 +8,7 @@
 
 package main.com.security.anonophant.network;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -31,13 +28,12 @@ public class AuthenticationRequest extends BaseRequest
     @Override
     public ArrayList<String> read() throws IOException
     {
-        BufferedReader in = new BufferedReader(new InputStreamReader(getRequestSocket().getInputStream()));
+        System.out.println("AUTH READING");
+        DataInputStream in = new DataInputStream(getRequestSocket().getInputStream());
         ArrayList<String> retrievedStrings = new ArrayList<>();
-        String line = null;
-        while((line = in.readLine()) != null)
-        {
-            retrievedStrings.add(line);
-        }
+        retrievedStrings.add(in.readUTF());
+
+        System.out.println("AUTH FINISHED READ");
 
         return retrievedStrings;
     }
@@ -57,7 +53,9 @@ public class AuthenticationRequest extends BaseRequest
     {
         write();
         fromServer = read();
-        return null;
+        //close();
+        System.out.println("I AM RETURNING AUTH");
+        return fromServer;
     }
 
     public ArrayList<String> getFromServer()

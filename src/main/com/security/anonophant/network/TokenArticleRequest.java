@@ -27,9 +27,10 @@ public class TokenArticleRequest extends BaseRequest
     @Override
     protected ArrayList<String> call() throws Exception
     {
+        System.out.println("TOKEN ARTICLE REQUEST IS BEING CALLED");
         Socket soc = getRequestSocket();
         BufferedWriter write = new BufferedWriter(new OutputStreamWriter(soc.getOutputStream()));
-        write.write("OLD_TOKEN\n");
+        write.write("PREVIOUS_TOKEN\n");
         write.write(newToken+"\n");
         write.write(oldToken+"\n");
         write.flush();
@@ -40,6 +41,17 @@ public class TokenArticleRequest extends BaseRequest
         {
             articles.add(line);
         }
+        System.out.println("ARTICLES HERE: "+articles);
+        close();
+        File file = new File(System.getProperty("user.dir") + "/tokens/oldtoken.txt");
+        if (!file.exists())
+        {
+            file.getParentFile().mkdirs();
+        }
+        PrintWriter out = new PrintWriter(file);
+        out.write(newToken);
+        out.flush();
+        out.close();
         return articles;
     }
 }

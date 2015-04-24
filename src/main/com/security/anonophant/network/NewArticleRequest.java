@@ -59,6 +59,16 @@ public class NewArticleRequest extends BaseRequest
         {
             articleLines.add(line);
         }
+        close();
+        File file = new File(System.getProperty("user.dir") + "/tokens/oldtoken.txt");
+        if (!file.exists())
+        {
+            file.getParentFile().mkdirs();
+        }
+        PrintWriter out = new PrintWriter(file);
+        out.write(token);
+        out.flush();
+        out.close();
         return articleLines;
     }
 }
